@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/xyplot_menu_render_mode"
+          android:title="@string/xyplot_menu_render_mode" />
+    <item android:id="@+id/xyplot_menu_render_altitude"
+          android:title="@string/xyplot_menu_render_altitude" />
+    <item android:id="@+id/xyplot_menu_render_speed"
+          android:title="@string/xyplot_menu_render_speed" />
+</menu>

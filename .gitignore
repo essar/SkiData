@@ -1,0 +1,22 @@
+# Ignore build directories #
+############################
+bin/
+
+# Ignore local related files #
+##############################
+data/
+stuff/
+
+# Log files #
+#############
+*.log
+
+# OS generated files #
+######################
+.DS_Store*
+ehthumbs.db
+Thumbs.db
+
+# Eclipse project settings #
+############################
+.settings/

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Ski Data</string>
+    <string name="load_data_csv">Load CSV data</string>
+    
+    <string name="datasummary_hialt">Highest altitude</string>
+    <string name="datasummary_lowalt">Lowest altitude</string>
+    <string name="datasummary_maxskispeed">Maximum ski speed</string>
+    <string name="datasummary_aveskispeed">Average ski speed</string>
+    <string name="datasummary_totaltime">Total time</string>
+    <string name="datasummary_totalskitime">Total ski time</string>
+    <string name="datasummary_totaldist">Total distance</string>
+    <string name="datasummary_totalskidist">Total ski distance</string>
+    <string name="datasummary_totalskidesc">Total ski descent</string>
+    <string name="datasummary_more">More...</string>
+    
+    <string name="xyplot_menu_render_mode">Mode</string>
+    <string name="xyplot_menu_render_altitude">Altitude</string>
+    <string name="xyplot_menu_render_speed">Speed</string>
+</resources>
