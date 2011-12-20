@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Layout for : uk.co.essarsoftware.ski.android.uk.SummaryTile
+	 Orientation: LANDSCAPE
+	 Resolution : *
+	 Size       : *
+ -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		android:id="@+id/summarytile"
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+		android:orientation="vertical"
+		android:padding="10dip">
+	<TextView android:id="@+id/summarytile_value"
+		android:layout_width="wrap_content"
+		android:layout_height="50dip"
+		android:layout_gravity="right|top"
+		android:layout_weight="1"
+		android:maxLines="1"
+		android:textColor="#FFFFFF"
+		android:textSize="20sp"
+		android:textStyle="bold"
+		android:text="Value" />
+	<TextView android:id="@+id/summarytile_name"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="bottom|left"
+		android:layout_weight="0"
+		android:textColor="#FFFFFF"
+		android:textSize="10sp"
+		android:text="Name" />
+</LinearLayout>
