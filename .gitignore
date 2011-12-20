@@ -1,6 +1,7 @@
 # Ignore build directories #
 ############################
 bin/
+dist/
 
 # Ignore local related files #
 ##############################

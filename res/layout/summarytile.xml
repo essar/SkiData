@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Layout for : uk.co.essarsoftware.ski.android.uk.SummaryTile
+	 Orientation: PORTRAIT
+	 Resolution : *
+	 Size       : *
+ -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 		android:id="@+id/summarytile"
 		android:layout_width="fill_parent"
@@ -18,6 +23,7 @@
 		android:layout_height="wrap_content"
 		android:layout_gravity="right|top"
 		android:layout_weight="0"
+		android:maxLines="1"
 		android:textColor="#FFFFFF"
 		android:textSize="24sp"
 		android:textStyle="bold"

@@ -67,14 +67,21 @@ public class XYPlotView extends View
 		float dwX = padding;
 		float dwY = padding;
 		float dwWidth = (float) getWidth() - (2.0f * padding);
-		float dwHeight = (float) getHeight() - (2.0f * padding); 
+		float dwHeight = (float) getHeight() - (2.0f * padding);
 		
-		Log.d("XYPlot", String.format("Plot area set to %.2fx%.2f", plot.getXAxis().getLength(), plot.getYAxis().getLength()));
+		float plWidth = plot.getXAxis().getLength();
+		float plHeight = plot.getYAxis().getLength();
+		
+		Log.d("XYPlot", String.format("Plot area set to %.2fx%.2f", plWidth, plHeight));
 		Log.d("XYPlot", String.format("Drawing area set to %.2fx%.2f", dwWidth, dwHeight));
 		
+		if(plot.isRotatable() && (dwWidth / dwHeight > 0 && dwHeight / dwWidth < 0) || (dwWidth / dwHeight < 0 && dwHeight / dwWidth > 0)) {
+			// Rotate (switch X & Y axis)
+		}
+		
 		// Adjust scaling to fit data set - use negative Y-scale factor to put origin at bottom
-		float scaleX = dwWidth / (plot.getXAxis().getLength());
-		float scaleY = dwHeight / (plot.getYAxis().getLength());
+		float scaleX = dwWidth / plWidth;
+		float scaleY = dwHeight / plHeight;
 
 		// Adjust scaling if proportional flag is set
 		if(plot.isProportional()) {

@@ -4,12 +4,33 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
 
-	<TextView android:id="@+id/text"
+	<TextView android:id="@+id/loaddata_csv_title"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:text="@string/load_data_csv" />
-	<Button android:id="@+id/button"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:text="Load data" />
+		android:text="@string/loaddata_csv_title"
+	/>
+	
+	<LinearLayout
+		android:orientation="horizontal"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content">
+		
+		<Spinner android:id="@+id/loaddata_csv_files_sp"
+			android:layout_width="wrap_content" 
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:prompt="@string/loaddata_csv_title" />
+		
+		<Button android:id="@+id/loaddata_csv_btn"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/loaddata_csv_btn" />
+		
+		<CheckBox android:id="@+id/loaddata_csv_all_chk"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/loaddata_csv_all_chk" />
+		
+	</LinearLayout>
+	
 </LinearLayout>

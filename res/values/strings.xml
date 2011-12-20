@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Ski Data</string>
-    <string name="load_data_csv">Load CSV data</string>
+    
+    <string name="loaddata_csv_title">Load CSV data</string>
+    <string name="loaddata_csv_btn">Load data</string>
+    <string name="loaddata_csv_all_chk">All records</string>
     
     <string name="datasummary_hialt">Highest altitude</string>
     <string name="datasummary_lowalt">Lowest altitude</string>

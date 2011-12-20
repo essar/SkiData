@@ -2,6 +2,8 @@ package uk.co.essarsoftware.ski.android.ui;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -10,8 +12,8 @@ import uk.co.essarsoftware.ski.data.CSVParser;
 import uk.co.essarsoftware.ski.data.DataLoader;
 import uk.co.essarsoftware.ski.data.DataLoaderListener;
 import uk.co.essarsoftware.ski.data.DataParser;
-import uk.co.essarsoftware.ski.data.SkiDataProcessor;
 import uk.co.essarsoftware.ski.data.Processor;
+import uk.co.essarsoftware.ski.data.SkiDataProcessor;
 import uk.co.essarsoftware.ski.xyplot.XYDataSet;
 import uk.co.essarsoftware.ski.xyplot.XYDatum;
 import android.app.ProgressDialog;
@@ -21,7 +23,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 /**
@@ -37,16 +42,23 @@ public class LoadDataActivity extends SkiDataActivity implements DataLoaderListe
 	private InputStream rIs;
 	private ProgressDialog dlg;
 	
+	private String srcPath = "/mnt/sdcard/skidata/";
+	
 	/**
 	 * Load data from a data source.
 	 */
-	private void loadData() {
-		String filename = "/mnt/sdcard/skidata/ski_20110222.csv";
-		Log.d(getLocalClassName(), "Starting data load from " + filename);
-
+	private void loadData(boolean all) {
+		String filename = null;
 		try {
+			// Get filename
+			filename = (String) ((Spinner) findViewById(R.id.loaddata_csv_files_sp)).getSelectedItem();
+			if(filename == null) {
+				throw new FileNotFoundException("No CSV files found");
+			}
+			Log.d(getLocalClassName(), "Starting data load from " + filename);
+			
 			// Open file from SD card
-        	File root = getExternalFilesDir(null);
+        	File root = new File(getExternalFilesDir(null), srcPath);
         	rIs = new FileInputStream(new File(root, filename));
         	
         	// Create data parser and element processor
@@ -54,7 +66,7 @@ public class LoadDataActivity extends SkiDataActivity implements DataLoaderListe
         	Processor p = new SkiDataProcessor();
         	
         	// Initiate data loader
-        	ldr = new DataLoader(dp, p, 0, 3600, this);
+        	ldr = new DataLoader(dp, p, 0, (all ? -1 : 3600), this);
         	
         	// Display progress dialog
         	dlg = ProgressDialog.show(this, "", "Loading data...", true, true, new DialogInterface.OnCancelListener() {
@@ -94,11 +106,24 @@ public class LoadDataActivity extends SkiDataActivity implements DataLoaderListe
         // Load activity content from XML
         setContentView(R.layout.loaddata);
         
+        File src = new File(getExternalFilesDir(null), srcPath); 
+        String[] fNames = src.list(new FilenameFilter() {
+        	public boolean accept(File dir, String filename) {
+        		return (filename.endsWith(".csv") || filename.endsWith(".CSV"));
+        	}
+        });
+        Log.d(getLocalClassName(), fNames.length + " file(s) found in directory");
+
+        // Set spinner content
+        ArrayAdapter<String> adap = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, fNames);
+        ((Spinner) findViewById(R.id.loaddata_csv_files_sp)).setAdapter(adap);
+        
         // Add button listener
-        Button btn = (Button) findViewById(R.id.button);
+        Button btn = (Button) findViewById(R.id.loaddata_csv_btn);
         btn.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-				loadData();
+				boolean loadAll = ((CheckBox) findViewById(R.id.loaddata_csv_all_chk)).isChecked();
+				loadData(loadAll);
 			}
 		});
         

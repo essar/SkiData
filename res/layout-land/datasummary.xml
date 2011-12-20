@@ -1,82 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Layout for : uk.co.essarsoftware.ski.android.uk.DataSummaryActivity
+	 Orientation: LANDSCAPE
+	 Resolution : *
+	 Size       : *
+ -->
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
 			xmlns:ski="http://schemas.android.com/apk/res/uk.co.essarsoftware.ski"
 		android:layout_width="fill_parent"
     	android:layout_height="fill_parent">
 	
-	<LinearLayout 
+	<TableLayout 
     	android:layout_width="fill_parent"
     	android:layout_height="fill_parent"
-    	android:orientation="vertical">
+    	android:stretchColumns="*"
+    	android:gravity="bottom">
     	
-    	<uk.co.essarsoftware.ski.android.ui.SummaryTile android:id="@+id/datasummary_totaldist"
-	    	android:layout_width="fill_parent"
-	    	android:layout_height="wrap_content"
-	    	android:background="#F0C030"
-	    	ski:summarytile_name="@string/datasummary_totaldist"
-	    	android:onClick="clickDistance"
-	    />
+    	<TableRow> 
+	    	<uk.co.essarsoftware.ski.android.ui.SummaryTile android:id="@+id/datasummary_totaldist"
+		    	android:layout_width="fill_parent"
+		    	android:layout_height="fill_parent"
+		    	android:background="#F0C030"
+		    	ski:summarytile_name="@string/datasummary_totaldist"
+		    	android:onClick="clickDistance"
+		    />
+		    
+		    <uk.co.essarsoftware.ski.android.ui.SummaryTile android:id="@+id/datasummary_hialt"
+		    	android:layout_width="fill_parent"
+		    	android:layout_height="fill_parent"
+		    	android:background="#C0F030"
+		    	ski:summarytile_name="@string/datasummary_hialt"
+		    	android:onClick="clickAlt"
+		    />
+		    
+		     <uk.co.essarsoftware.ski.android.ui.SummaryTile android:id="@+id/datasummary_maxskispeed"
+		    	android:layout_width="fill_parent"
+		    	android:layout_height="fill_parent"
+		    	android:background="#30C0F0"
+		    	ski:summarytile_name="@string/datasummary_maxskispeed"
+		    	android:onClick="clickSpeed"
+		    />
+		    
+		    <uk.co.essarsoftware.ski.android.ui.SummaryTile android:id="@+id/datasummary_totaltime"
+		    	android:layout_width="fill_parent"
+		    	android:layout_height="fill_parent"
+		    	android:background="#F030C0"
+		    	ski:summarytile_name="@string/datasummary_totaltime"
+		    />
+		    
+		    <uk.co.essarsoftware.ski.android.ui.SummaryTile android:id="@+id/datasummary_totalskidesc"
+		    	android:layout_width="fill_parent"
+		    	android:layout_height="fill_parent"
+		    	android:background="#C030F0"
+		    	ski:summarytile_name="@string/datasummary_totalskidesc"
+		    />
+		    
+		</TableRow>
 	    
-	     <uk.co.essarsoftware.ski.android.ui.SummaryTile android:id="@+id/datasummary_totalskidist"
-	    	android:layout_width="fill_parent"
-	    	android:layout_height="wrap_content"
-	    	android:background="#806020"
-	    	ski:summarytile_name="@string/datasummary_totalskidist"
-	    	android:onClick="clickDistance"
-	    />
+	    <TableRow>
+		    <uk.co.essarsoftware.ski.android.ui.SummaryTile android:id="@+id/datasummary_totalskidist"
+		    	android:layout_width="fill_parent"
+		    	android:layout_height="fill_parent"
+		    	android:background="#806020"
+		    	ski:summarytile_name="@string/datasummary_totalskidist"
+		    	android:onClick="clickDistance"
+		    />
+
+		    <uk.co.essarsoftware.ski.android.ui.SummaryTile android:id="@+id/datasummary_lowalt"
+		    	android:layout_width="fill_parent"
+		    	android:layout_height="fill_parent"
+		    	android:background="#608020"
+		    	ski:summarytile_name="@string/datasummary_lowalt"
+		    	android:onClick="clickAlt"
+		    />
 	    
-	    <uk.co.essarsoftware.ski.android.ui.SummaryTile android:id="@+id/datasummary_hialt"
-	    	android:layout_width="fill_parent"
-	    	android:layout_height="wrap_content"
-	    	android:background="#C0F030"
-	    	ski:summarytile_name="@string/datasummary_hialt"
-	    	android:onClick="clickAlt"
-	    />
-	    
-	    <uk.co.essarsoftware.ski.android.ui.SummaryTile android:id="@+id/datasummary_lowalt"
-	    	android:layout_width="fill_parent"
-	    	android:layout_height="wrap_content"
-	    	android:background="#608020"
-	    	ski:summarytile_name="@string/datasummary_lowalt"
-	    	android:onClick="clickAlt"
-	    />
-	    
-	    <uk.co.essarsoftware.ski.android.ui.SummaryTile android:id="@+id/datasummary_maxskispeed"
-	    	android:layout_width="fill_parent"
-	    	android:layout_height="wrap_content"
-	    	android:background="#30C0F0"
-	    	ski:summarytile_name="@string/datasummary_maxskispeed"
-	    	android:onClick="clickSpeed"
-	    />
-	    
-	     <uk.co.essarsoftware.ski.android.ui.SummaryTile android:id="@+id/datasummary_aveskispeed"
-	    	android:layout_width="fill_parent"
-	    	android:layout_height="wrap_content"
-	    	android:background="#206080"
-	    	ski:summarytile_name="@string/datasummary_aveskispeed"
-	    	android:onClick="clickSpeed"
-	    />
-	    
-	    <uk.co.essarsoftware.ski.android.ui.SummaryTile android:id="@+id/datasummary_totaltime"
-	    	android:layout_width="fill_parent"
-	    	android:layout_height="wrap_content"
-	    	android:background="#F030C0"
-	    	ski:summarytile_name="@string/datasummary_totaltime"
-	    />
-	    
-	     <uk.co.essarsoftware.ski.android.ui.SummaryTile android:id="@+id/datasummary_totalskitime"
-	    	android:layout_width="fill_parent"
-	    	android:layout_height="wrap_content"
-	    	android:background="#802060"
-	    	ski:summarytile_name="@string/datasummary_totalskitime"
-	    />
-	    
-	    <uk.co.essarsoftware.ski.android.ui.SummaryTile android:id="@+id/datasummary_totalskidesc"
-	    	android:layout_width="fill_parent"
-	    	android:layout_height="wrap_content"
-	    	android:background="#C030F0"
-	    	ski:summarytile_name="@string/datasummary_totalskidesc"
-	    />
+		    <uk.co.essarsoftware.ski.android.ui.SummaryTile android:id="@+id/datasummary_aveskispeed"
+		    	android:layout_width="fill_parent"
+		    	android:layout_height="fill_parent"
+		    	android:background="#206080"
+		    	ski:summarytile_name="@string/datasummary_aveskispeed"
+		    	android:onClick="clickSpeed"
+		    />
+
+		    <uk.co.essarsoftware.ski.android.ui.SummaryTile android:id="@+id/datasummary_totalskitime"
+		    	android:layout_width="fill_parent"
+		    	android:layout_height="fill_parent"
+		    	android:background="#802060"
+		    	ski:summarytile_name="@string/datasummary_totalskitime"
+		    />
+		</TableRow>
 	    
 	    <!--<uk.co.essarsoftware.ski.android.ui.SummaryTile android:id="@+id/datasummary_more"
 	    	android:layout_width="fill_parent"
@@ -84,5 +95,5 @@
 	    	android:background="#602080"
 	    	ski:summarytile_name="@string/datasummary_more"
 	    /> -->
-	</LinearLayout>
+	</TableLayout>
 </ScrollView>

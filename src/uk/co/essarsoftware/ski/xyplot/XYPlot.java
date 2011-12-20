@@ -11,9 +11,15 @@ package uk.co.essarsoftware.ski.xyplot;
  */
 public class XYPlot
 {
-	private boolean proportional;
+	private boolean rotatable;
+	private int scaleMode;
 	private XYDataSet[] data;
 	private XYAxis xAxis, yAxis;
+
+	
+	public static final int SCALE_MODE_NONE = 0x00;
+	public static final int SCALE_MODE_PROPORTIONAL = 0x01;
+	public static final int SCALE_MODE_STRETCH = 0x02;
 	
 	/**
 	 * Create a new plot with normal X and Y axis.
@@ -69,7 +75,23 @@ public class XYPlot
 	 * @return true if this plot can only be scaled in a proportional manner, false otherwise.
 	 */
 	public boolean isProportional() {
-		return proportional;
+		return scaleMode == SCALE_MODE_PROPORTIONAL;
+	}
+	
+	/**
+	 * Get the rotatable flag for this plot.
+	 * @return true if this plot can be rotated, false otherwise.
+	 */
+	public boolean isRotatable() {
+		return rotatable;
+	}
+	
+	/**
+	 * Get the scalable flag for this plot.
+	 * @return true if the plot can be scaled, false otherwise.
+	 */
+	public boolean isScalable() {
+		return scaleMode == SCALE_MODE_STRETCH;
 	}
 	
 	/**
@@ -77,7 +99,23 @@ public class XYPlot
 	 * @param proportional true if this plot can only be scaled in a proportional manner, false otherwise.
 	 */
 	public void setProportional(boolean proportional) {
-		this.proportional = proportional;
+		scaleMode = (proportional ? SCALE_MODE_PROPORTIONAL : SCALE_MODE_STRETCH);
+	}
+	
+	/**
+	 * Set the rotatable flag for this plot.
+	 * @param rotatable true if this plot can be rotated, false otherwise.
+	 */
+	public void setRotatable(boolean rotatable) {
+		this.rotatable = rotatable;
+	}
+	
+	/**
+	 * Set the scalable flag for this plot.
+	 * @param scalable true if this plot can be scaled, false otherwise.
+	 */
+	public void setScalable(boolean scalable) {
+		scaleMode = (scalable ? SCALE_MODE_STRETCH : SCALE_MODE_NONE);
 	}
 	
 	/**
@@ -87,5 +125,14 @@ public class XYPlot
 	 */
 	public XYDatum translatePoint(XYDatum in) {
 		return new XYDatum(xAxis.translateValue(in.getX()), yAxis.translateValue(in.getY()), in.getV());
+	}
+	
+	/**
+	 * Transpose the plot to make the x-axis the y-axis, and visa versa.
+	 */
+	public void transposePlot() {
+		XYAxis temp = xAxis;
+		xAxis = yAxis;
+		yAxis = temp;
 	}
 }
