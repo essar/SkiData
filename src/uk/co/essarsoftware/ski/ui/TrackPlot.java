@@ -4,7 +4,6 @@ import uk.co.essarsoftware.ski.data.Track;
 import uk.co.essarsoftware.ski.data.TrackElement;
 import uk.co.essarsoftware.ski.xyplot.XYDataSet;
 import uk.co.essarsoftware.ski.xyplot.XYPlot;
-import uk.co.essarsoftware.ski.xyplot.XYTrackElement;
 
 public class TrackPlot extends XYPlot
 {
@@ -19,6 +18,5 @@ public class TrackPlot extends XYPlot
 	public TrackPlot(Track track) {
 		super(buildData(track));
 		setProportional(true);
-		setRotatable(true);
 	}
 }

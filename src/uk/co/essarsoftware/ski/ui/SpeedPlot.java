@@ -4,7 +4,6 @@ import uk.co.essarsoftware.ski.data.Track;
 import uk.co.essarsoftware.ski.data.TrackElement;
 import uk.co.essarsoftware.ski.xyplot.XYDataSet;
 import uk.co.essarsoftware.ski.xyplot.XYPlot;
-import uk.co.essarsoftware.ski.xyplot.XYTrackElement;
 
 public class SpeedPlot extends XYPlot
 {
