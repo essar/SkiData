@@ -11,11 +11,9 @@ package uk.co.essarsoftware.ski.xyplot;
  */
 public class XYPlot
 {
-	private boolean rotatable;
 	private int scaleMode;
 	private XYDataSet[] data;
 	private XYAxis xAxis, yAxis;
-
 	
 	public static final int SCALE_MODE_NONE = 0x00;
 	public static final int SCALE_MODE_PROPORTIONAL = 0x01;
@@ -79,14 +77,6 @@ public class XYPlot
 	}
 	
 	/**
-	 * Get the rotatable flag for this plot.
-	 * @return true if this plot can be rotated, false otherwise.
-	 */
-	public boolean isRotatable() {
-		return rotatable;
-	}
-	
-	/**
 	 * Get the scalable flag for this plot.
 	 * @return true if the plot can be scaled, false otherwise.
 	 */
@@ -100,14 +90,6 @@ public class XYPlot
 	 */
 	public void setProportional(boolean proportional) {
 		scaleMode = (proportional ? SCALE_MODE_PROPORTIONAL : SCALE_MODE_STRETCH);
-	}
-	
-	/**
-	 * Set the rotatable flag for this plot.
-	 * @param rotatable true if this plot can be rotated, false otherwise.
-	 */
-	public void setRotatable(boolean rotatable) {
-		this.rotatable = rotatable;
 	}
 	
 	/**

@@ -1,8 +1,8 @@
 package uk.co.essarsoftware.ski.android.ui;
 
+import uk.co.essarsoftware.ski.ui.XYTrackElement;
 import uk.co.essarsoftware.ski.xyplot.XYDatum;
 import uk.co.essarsoftware.ski.xyplot.XYPlot;
-import uk.co.essarsoftware.ski.xyplot.XYTrackElement;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -44,6 +44,11 @@ public class XYPlotView extends View
 		this.drawAxis = false;
 	}
 	
+	/**
+	 * Set the renderer used to draw this plot.
+	 * @param vr the new <tt>Renderer</tt> implementation.
+	 * @param redraw whether an immediate redraw should be triggered.
+	 */
 	void setRenderer(Renderer vr, boolean redraw) {
 		this.vr = vr;
 		if(redraw) {
@@ -74,10 +79,6 @@ public class XYPlotView extends View
 		
 		Log.d("XYPlot", String.format("Plot area set to %.2fx%.2f", plWidth, plHeight));
 		Log.d("XYPlot", String.format("Drawing area set to %.2fx%.2f", dwWidth, dwHeight));
-		
-		if(plot.isRotatable() && (dwWidth / dwHeight > 0 && dwHeight / dwWidth < 0) || (dwWidth / dwHeight < 0 && dwHeight / dwWidth > 0)) {
-			// Rotate (switch X & Y axis)
-		}
 		
 		// Adjust scaling to fit data set - use negative Y-scale factor to put origin at bottom
 		float scaleX = dwWidth / plWidth;
