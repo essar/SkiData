@@ -1,6 +1,7 @@
-package uk.co.essarsoftware.ski.xyplot;
+package uk.co.essarsoftware.ski.ui;
 
 import uk.co.essarsoftware.ski.data.TrackElement;
+import uk.co.essarsoftware.ski.xyplot.XYDatum;
 
 public class XYTrackElement extends XYDatum
 {
