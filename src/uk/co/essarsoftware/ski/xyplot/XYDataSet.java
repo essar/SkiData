@@ -51,6 +51,19 @@ public class XYDataSet extends LinkedList<XYDatum>
 		maxY = Math.max(maxY, d.getY());
 	}
 	
+	/**
+	 * Transpose the data set to turn x values into y values and visa versa.
+	 */
+	XYDataSet transpose() {
+		XYDataSet ts = new XYDataSet(seriesName);
+		
+		for(XYDatum d : this) {
+			ts.add(d.transpose());
+		}
+		
+		return ts;
+	}
+	
 	/* (non-Javadoc)
 	 * @see java.util.LinkedList#add(int, java.lang.Object)
 	 */

@@ -1,5 +1,15 @@
 package uk.co.essarsoftware.ski.xyplot;
-
+/*
+ * Essar Software Ski Data
+ * http://github.com/essar/skidata
+ * 
+ * -----------+----------+-----------------------------------------------------
+ *  Date      | Version  | Comments
+ * -----------+----------+-----------------------------------------------------
+ *  17-Dec-11 | 1.0      | Initial version
+ * -----------+----------+-----------------------------------------------------
+ * 
+ */
 
 
 /**
@@ -11,17 +21,13 @@ package uk.co.essarsoftware.ski.xyplot;
  */
 public class XYPlot
 {
-	private int scaleMode;
+	private boolean proportional;
 	private XYDataSet[] data;
 	private XYAxis xAxis, yAxis;
 	
-	public static final int SCALE_MODE_NONE = 0x00;
-	public static final int SCALE_MODE_PROPORTIONAL = 0x01;
-	public static final int SCALE_MODE_STRETCH = 0x02;
-	
 	/**
-	 * Create a new plot with normal X and Y axis.
-	 * @param data the data set to plot.
+	 * Create a new plot with a single data series and normal X and Y axis.
+	 * @param data the data series to plot.
 	 */
 	public XYPlot(XYDataSet data) {
 		this(new XYDataSet[] {data}, XYAxis.AXIS_TYPE_NORMAL, XYAxis.AXIS_TYPE_NORMAL);
@@ -32,10 +38,14 @@ public class XYPlot
 	}
 	
 	/**
-	 * Create a new plot with the specified axis types.
-	 * @param data the data set to plot.
+	 * Create a new plot with the specified axis types. Axis can be linear (normal) or logarithmic, and can be inverted.
+	 * @param data the data series to plot.
 	 * @param xMode the X-axis type.
 	 * @param yMode the Y-axis type.
+	 * @see XYAxis#AXIS_TYPE_NORMAL
+	 * @see XYAxis#AXIS_TYPE_INVERTED
+	 * @see XYAxis#AXIS_TYPE_LOGARITHMIC
+	 * @see XYAxis#AXIS_TYPE_INVERTED_LOG
 	 */
 	public XYPlot(XYDataSet[] data, int xMode, int yMode) {
 		this.data = data;
@@ -45,8 +55,8 @@ public class XYPlot
 	}
 	
 	/**
-	 * Get the data set plotted on this axis.
-	 * @return the data set to plot.
+	 * Get the data series plotted on this axis.
+	 * @return the data series to plot.
 	 */
 	public XYDataSet getData() {
 		return data[0];
@@ -73,15 +83,7 @@ public class XYPlot
 	 * @return true if this plot can only be scaled in a proportional manner, false otherwise.
 	 */
 	public boolean isProportional() {
-		return scaleMode == SCALE_MODE_PROPORTIONAL;
-	}
-	
-	/**
-	 * Get the scalable flag for this plot.
-	 * @return true if the plot can be scaled, false otherwise.
-	 */
-	public boolean isScalable() {
-		return scaleMode == SCALE_MODE_STRETCH;
+		return proportional;
 	}
 	
 	/**
@@ -89,15 +91,7 @@ public class XYPlot
 	 * @param proportional true if this plot can only be scaled in a proportional manner, false otherwise.
 	 */
 	public void setProportional(boolean proportional) {
-		scaleMode = (proportional ? SCALE_MODE_PROPORTIONAL : SCALE_MODE_STRETCH);
-	}
-	
-	/**
-	 * Set the scalable flag for this plot.
-	 * @param scalable true if this plot can be scaled, false otherwise.
-	 */
-	public void setScalable(boolean scalable) {
-		scaleMode = (scalable ? SCALE_MODE_STRETCH : SCALE_MODE_NONE);
+		this.proportional = proportional;
 	}
 	
 	/**
@@ -113,6 +107,11 @@ public class XYPlot
 	 * Transpose the plot to make the x-axis the y-axis, and visa versa.
 	 */
 	public void transposePlot() {
+		// Create transposed data set
+		XYDataSet tds = data[0].transpose();
+		data[0] = tds;
+
+		// Transpose axis
 		XYAxis temp = xAxis;
 		xAxis = yAxis;
 		yAxis = temp;

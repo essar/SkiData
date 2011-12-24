@@ -35,6 +35,13 @@ public class XYDatum
 	}
 	
 	/**
+	 * Transpose the data set to turn x values into y values and visa versa.
+	 */
+	XYDatum transpose() {
+		return new XYDatum(y, x, v);
+	}
+	
+	/**
 	 * Get the value of the point.
 	 * @return the value of the point.
 	 */
