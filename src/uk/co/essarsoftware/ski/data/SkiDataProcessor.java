@@ -29,11 +29,11 @@ public class SkiDataProcessor implements Processor
 			case STOP:
 				// Stopped, but now moving
 				if(elem.getDistance() > 0 && eWin.moving() >= 0.5) {
-					if(elem.getAltitudeChange() > 0 && eWin.ascent() > 0) {
+					if(elem.getAltitudeChange() > 0 && eWin.ascent() > 0 && eWin.ascending() > 0.3) {
 						// Altitude ascending
 						return Mode.LIFT;
 					}
-					if(elem.getAltitudeChange() < 0 && eWin.ascent() < 0) {
+					if(elem.getAltitudeChange() < 0 && eWin.ascent() < 0 && eWin.descending() > 0.3 ) {
 						// Altitude descending
 						return Mode.SKI;
 					}
@@ -44,11 +44,19 @@ public class SkiDataProcessor implements Processor
 				if(elem.getDistance() == 0 && eWin.stopped() > 0.8) {
 					return Mode.STOP;
 				}
+				// Skiing, but now on a lift
+				if(elem.getAltitudeChange() > 5 && eWin.ascent() > 0 && eWin.ascending() > 0.9) {
+					return Mode.LIFT;
+				}
 				break;
 			case LIFT:
 				// On a lift, but now not moving
 				if(elem.getDistance() == 0 && eWin.stopped() > 0.8) {
 					return Mode.STOP;
+				}
+				// On a lift, but now skiing
+				if(elem.getAltitudeChange() < 0 && eWin.ascent() < 0 && eWin.descending() > 0.9) {
+					return Mode.SKI;
 				}
 				break;
 		}
