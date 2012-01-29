@@ -2,6 +2,10 @@
 <resources>
     <string name="app_name">Ski Data</string>
     
+    <string name="loaddata_gsd_title">Load GSD data</string>
+    <string name="loaddata_gsd_btn">Load data</string>
+    <string name="loaddata_gsd_all_chk">All records</string>
+    
     <string name="loaddata_csv_title">Load CSV data</string>
     <string name="loaddata_csv_btn">Load data</string>
     <string name="loaddata_csv_all_chk">All records</string>

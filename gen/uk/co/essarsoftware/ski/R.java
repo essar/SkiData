@@ -31,17 +31,21 @@ containing a value of this type.
         public static final int datasummary_totalskidist=0x7f060001;
         public static final int datasummary_totalskitime=0x7f060007;
         public static final int datasummary_totaltime=0x7f060006;
-        public static final int loaddata_csv_all_chk=0x7f06000c;
-        public static final int loaddata_csv_btn=0x7f06000b;
-        public static final int loaddata_csv_files_sp=0x7f06000a;
-        public static final int loaddata_csv_title=0x7f060009;
-        public static final int summarytile=0x7f06000d;
-        public static final int summarytile_name=0x7f06000e;
-        public static final int summarytile_value=0x7f06000f;
-        public static final int xyplot=0x7f060010;
-        public static final int xyplot_menu_render_altitude=0x7f060012;
-        public static final int xyplot_menu_render_mode=0x7f060011;
-        public static final int xyplot_menu_render_speed=0x7f060013;
+        public static final int loaddata_csv_all_chk=0x7f060010;
+        public static final int loaddata_csv_btn=0x7f06000f;
+        public static final int loaddata_csv_files_sp=0x7f06000e;
+        public static final int loaddata_csv_title=0x7f06000d;
+        public static final int loaddata_gsd_all_chk=0x7f06000c;
+        public static final int loaddata_gsd_btn=0x7f06000b;
+        public static final int loaddata_gsd_files_sp=0x7f06000a;
+        public static final int loaddata_gsd_title=0x7f060009;
+        public static final int summarytile=0x7f060011;
+        public static final int summarytile_name=0x7f060012;
+        public static final int summarytile_value=0x7f060013;
+        public static final int xyplot=0x7f060014;
+        public static final int xyplot_menu_render_altitude=0x7f060016;
+        public static final int xyplot_menu_render_mode=0x7f060015;
+        public static final int xyplot_menu_render_speed=0x7f060017;
     }
     public static final class layout {
         public static final int datasummary=0x7f030000;
@@ -55,22 +59,25 @@ containing a value of this type.
     }
     public static final class string {
         public static final int app_name=0x7f040000;
-        public static final int datasummary_aveskispeed=0x7f040007;
-        public static final int datasummary_hialt=0x7f040004;
-        public static final int datasummary_lowalt=0x7f040005;
-        public static final int datasummary_maxskispeed=0x7f040006;
-        public static final int datasummary_more=0x7f04000d;
-        public static final int datasummary_totaldist=0x7f04000a;
-        public static final int datasummary_totalskidesc=0x7f04000c;
-        public static final int datasummary_totalskidist=0x7f04000b;
-        public static final int datasummary_totalskitime=0x7f040009;
-        public static final int datasummary_totaltime=0x7f040008;
-        public static final int loaddata_csv_all_chk=0x7f040003;
-        public static final int loaddata_csv_btn=0x7f040002;
-        public static final int loaddata_csv_title=0x7f040001;
-        public static final int xyplot_menu_render_altitude=0x7f04000f;
-        public static final int xyplot_menu_render_mode=0x7f04000e;
-        public static final int xyplot_menu_render_speed=0x7f040010;
+        public static final int datasummary_aveskispeed=0x7f04000a;
+        public static final int datasummary_hialt=0x7f040007;
+        public static final int datasummary_lowalt=0x7f040008;
+        public static final int datasummary_maxskispeed=0x7f040009;
+        public static final int datasummary_more=0x7f040010;
+        public static final int datasummary_totaldist=0x7f04000d;
+        public static final int datasummary_totalskidesc=0x7f04000f;
+        public static final int datasummary_totalskidist=0x7f04000e;
+        public static final int datasummary_totalskitime=0x7f04000c;
+        public static final int datasummary_totaltime=0x7f04000b;
+        public static final int loaddata_csv_all_chk=0x7f040006;
+        public static final int loaddata_csv_btn=0x7f040005;
+        public static final int loaddata_csv_title=0x7f040004;
+        public static final int loaddata_gsd_all_chk=0x7f040003;
+        public static final int loaddata_gsd_btn=0x7f040002;
+        public static final int loaddata_gsd_title=0x7f040001;
+        public static final int xyplot_menu_render_altitude=0x7f040012;
+        public static final int xyplot_menu_render_mode=0x7f040011;
+        public static final int xyplot_menu_render_speed=0x7f040013;
     }
     public static final class styleable {
         /** Attributes that can be used with a summarytile.

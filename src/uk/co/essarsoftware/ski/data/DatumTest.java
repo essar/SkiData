@@ -10,9 +10,11 @@ public class DatumTest
 		long sTime = System.currentTimeMillis();
 		
 		// Load input points
-		File f = new File("../data/ski_20110222.csv");
+		//File f = new File("../data/ski_20110222.csv");
+		File f = new File("../data/20110222.gsd");
 		//CSVDatumLoader ldr = new CSVDatumLoader(f);
-		CSVParser p = new CSVParser(new FileInputStream(f));
+		//CSVParser p = new CSVParser(new FileInputStream(f));
+		GSDParser p = new GSDParser(new FileInputStream(f), true);
 		SkiDataProcessor ep = new SkiDataProcessor();
 		
 		int start = Integer.parseInt(args[0]);

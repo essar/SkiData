@@ -3,6 +3,35 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
+	
+	<TextView android:id="@+id/loaddata_gsd_title"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="@string/loaddata_gsd_title"
+	/>
+	
+	<LinearLayout
+		android:orientation="horizontal"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content">
+		
+		<Spinner android:id="@+id/loaddata_gsd_files_sp"
+			android:layout_width="wrap_content" 
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:prompt="@string/loaddata_gsd_title" />
+		
+		<Button android:id="@+id/loaddata_gsd_btn"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/loaddata_gsd_btn" />
+		
+		<CheckBox android:id="@+id/loaddata_gsd_all_chk"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/loaddata_gsd_all_chk" />
+		
+	</LinearLayout>
 
 	<TextView android:id="@+id/loaddata_csv_title"
 		android:layout_width="wrap_content"
