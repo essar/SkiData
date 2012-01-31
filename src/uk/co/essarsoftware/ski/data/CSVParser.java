@@ -22,6 +22,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 
+import uk.co.essarsoftware.ski.geo.CoordConverter;
+import uk.co.essarsoftware.ski.geo.UTMCoordinate;
+import uk.co.essarsoftware.ski.geo.WGSCoordinate;
+
 
 /**
  * <p>Class that processes from CSV data.</p>
@@ -176,8 +180,17 @@ public class CSVParser implements DataParser
 		float lo = parseFloatField("long", parts);
 		
 		// X & Y
-		int x = parseIntField("x", parts);
-		int y = parseIntField("y", parts);
+		int x = 0;
+		int y = 0;
+		if(!config.colMap.containsKey("x") || !config.colMap.containsKey("y")) {
+			// Config missing X or Y elements, so calculate from lat & long
+			UTMCoordinate utm = CoordConverter.WGS2UTM(new WGSCoordinate(la, lo, WGSCoordinate.COORD_MODE_DEG));
+			x = utm.getX();
+			y = utm.getY();
+		} else {
+			x = parseIntField("x", parts);
+			y = parseIntField("y", parts);
+		}
 		
 		// Altitude & Speed
 		int a = parseIntField("alt", parts);
