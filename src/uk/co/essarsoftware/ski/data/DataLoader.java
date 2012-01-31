@@ -259,6 +259,7 @@ public class DataLoader implements Runnable
 
 		// Interpolate data
 		len = DatumInterpolator.interpolateList(first);
+		System.out.println("Interpolated " + DatumInterpolator.ct + " points.");
 		
 		// Create SkiData constructs
 		Mode currentMode = Mode.STOP;
