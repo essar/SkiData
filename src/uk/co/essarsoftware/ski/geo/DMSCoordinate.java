@@ -4,7 +4,22 @@ public class DMSCoordinate extends Coordinate
 {
 	private final DMSElement latitude, longitude;
 	
-	public DMSCoordinate(int latD, int latM, int latS, int longD, int longM, int longS) {
+	public DMSCoordinate(int latD, float latM, int longD, float longM) {
+		this(latD, getMins(latM), getSecs(latM), longD, getMins(longM), getSecs(longM));
+	}
+	
+	private static float getSecs(float decimalMin) {
+		// Get decimal component
+		float dComp = decimalMin - getMins(decimalMin);
+		// Convert to seconds
+		return dComp * 60.0f;
+	}
+	
+	private static int getMins(float decimalMin) {
+		return (int) Math.floor(decimalMin);
+	}
+	
+	public DMSCoordinate(int latD, int latM, float latS, int longD, int longM, float longS) {
 		// Validate latitude values
 		char latX = (latD < 0 ? 'S' : 'N');
 		latD = Math.abs(latD);
@@ -50,7 +65,7 @@ public class DMSCoordinate extends Coordinate
 		return latitude.minutes;
 	}
 	
-	public int getLatitudeSeconds() {
+	public float getLatitudeSeconds() {
 		return latitude.seconds;
 	}
 	
@@ -66,7 +81,7 @@ public class DMSCoordinate extends Coordinate
 		return longitude.minutes;
 	}
 	
-	public int getLongitudeSeconds() {
+	public float getLongitudeSeconds() {
 		return longitude.seconds;
 	}
 	
@@ -77,9 +92,10 @@ public class DMSCoordinate extends Coordinate
 	private static class DMSElement
 	{
 		private final char hemisphere;
-		private final int degrees, minutes, seconds;
+		private final float seconds;
+		private final int degrees, minutes;
 		
-		DMSElement(int degrees, int minutes, int seconds, char hemisphere) {
+		DMSElement(int degrees, int minutes, float seconds, char hemisphere) {
 			this.degrees = degrees;
 			this.minutes = minutes;
 			this.seconds = seconds;

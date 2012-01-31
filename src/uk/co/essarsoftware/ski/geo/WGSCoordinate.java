@@ -66,6 +66,6 @@ public class WGSCoordinate extends Coordinate
     }
     
     public String toString() {
-    	return String.format("%3.5f, %3.5f", getLatitudeDegrees(), getLongitudeDegrees());
+    	return String.format("%3.6f, %3.6f", getLatitudeDegrees(), getLongitudeDegrees());
     }
 }
