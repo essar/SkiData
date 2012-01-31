@@ -20,6 +20,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import uk.co.essarsoftware.ski.geo.CoordConverter;
+import uk.co.essarsoftware.ski.geo.DMSCoordinate;
 import uk.co.essarsoftware.ski.geo.UTMCoordinate;
 import uk.co.essarsoftware.ski.geo.WGSCoordinate;
 
@@ -53,14 +54,18 @@ public class GSDParser implements DataParser
 		
 		if(bypassHeaders) {
 			try {
+				// Skip forward to [TP] section
 				while(! "[TP]".equalsIgnoreCase(readHeaderLine()));
 				
+				// Read first data block header
 				String b1 = readDataLine();
-				int ix = b1.indexOf('=');
-				String h = "[" + b1.substring(ix + 1) + "]";
-				
-				System.out.println("Looking for " + h);
-				while(! h.equalsIgnoreCase(readHeaderLine()));
+				if(b1 != null) {
+					int ix = b1.indexOf('=');
+					String h = "[" + b1.substring(ix + 1) + "]";
+					
+					// Look for first data block
+					while(! h.equalsIgnoreCase(readHeaderLine()));
+				}
 			} catch(IOException ioe) {
 				// TODO handle IOException
 				System.err.println("**IOE whilst bypassing headers: " + ioe);
@@ -160,12 +165,29 @@ public class GSDParser implements DataParser
 		// Get data parts
 		String[] parts = line.substring(ix + 1).split(",");
 		
+		String latStr = String.format("%08d", Integer.parseInt(parts[0]));
+		String lonStr = String.format("%08d", Integer.parseInt(parts[1]));
+		
+		int latD = Integer.parseInt(latStr.substring(0, 2));
+		float latM = Integer.parseInt(latStr.substring(2)) / 10000.0f;
+		
+		int lonD = Integer.parseInt(lonStr.substring(0, 2));
+		float lonM = Integer.parseInt(lonStr.substring(2)) / 10000.0f;
+		
+		//System.out.println(String.format("Latitude: in=%s, D=%d, M=%.4f", latStr, latD, latM));
+		//System.out.println(String.format("Longitude: in=%s, D=%d, M=%.4f", lonStr, lonD, lonM));
+
+		// Calculate coordinates
+		WGSCoordinate wgs = CoordConverter.DMS2WGS(new DMSCoordinate(latD, latM, lonD, lonM));
+		//System.out.println("WGS: " + wgs);
+		UTMCoordinate utm = CoordConverter.WGS2UTM(wgs);
+		//System.out.println("UTM: " + utm);
+		
 		// Latitude & Longitude
-		float la = (float) Integer.parseInt(parts[0]) / 1000000.0f;
-		float lo = (float) Integer.parseInt(parts[1]) / 1000000.0f;
+		float la = wgs.getLatitudeDegrees();
+		float lo = wgs.getLongitudeDegrees();
 		
 		// X & Y
-		UTMCoordinate utm = CoordConverter.WGS2UTM(new WGSCoordinate(la, lo, WGSCoordinate.COORD_MODE_DEG));
 		int x = utm.getX();
 		int y = utm.getY();
 		
