@@ -33,7 +33,7 @@ public class SkiDataProcessor implements Processor
 						// Altitude ascending
 						return Mode.LIFT;
 					}
-					if(elem.getAltitudeChange() < 0 && eWin.ascent() < 0 && eWin.descending() > 0.3 ) {
+					if(elem.getAltitudeChange() <= 0 && eWin.ascent() < 0 && eWin.descending() > 0.3 ) {
 						// Altitude descending
 						return Mode.SKI;
 					}
@@ -45,7 +45,7 @@ public class SkiDataProcessor implements Processor
 					return Mode.STOP;
 				}
 				// Skiing, but now on a lift
-				if(elem.getAltitudeChange() > 5 && eWin.ascent() > 0 && eWin.ascending() > 0.9) {
+				if(elem.getAltitudeChange() > 0 && eWin.ascent() > 0 && eWin.ascending() > 0.7) {
 					return Mode.LIFT;
 				}
 				break;
@@ -55,7 +55,7 @@ public class SkiDataProcessor implements Processor
 					return Mode.STOP;
 				}
 				// On a lift, but now skiing
-				if(elem.getAltitudeChange() < 0 && eWin.ascent() < 0 && eWin.descending() > 0.9) {
+				if(elem.getAltitudeChange() <= 0 && eWin.ascent() < 0 && eWin.descending() > 0.7) {
 					return Mode.SKI;
 				}
 				break;
