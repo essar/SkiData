@@ -2,6 +2,8 @@ package uk.co.essarsoftware.ski.data;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.IOException;
 
 
 public class DatumTest
@@ -78,6 +80,24 @@ public class DatumTest
 		
 		System.out.println(String.format("Loaded %d points in %d miliseconds.", data.size(), (fTime - sTime)));
 		
+		// Output data to file
+		try {
+			File outFile = new File(f.getParentFile(), "output.csv");
+			FileWriter fw = new FileWriter(outFile);
+
+			try {
+				for(TrackElement e : data.getAllElements()) {
+					fw.write(String.format("%d,%.6f,%.6f,%d,%d,%d,%d,%.3f,%.3f,%s\n", e.getTime(), e.getLatitude(), e.getLongitude(), e.getX(), e.getY(), e.getAltitude(), e.getAltitudeChange(), e.getSpeed(), e.getDistance(), e.getMode()));
+				}
+			} finally {
+				fw.close();
+				System.out.println("Data written to: " + outFile.getCanonicalPath());
+			}
+
+		} catch(IOException ioe) {
+			System.err.println("** Unable to write data file: " + ioe.getMessage());
+		}
+
 		{
 			Track t = data.getAllElements();
 			long st = (t.getStartTime() * 1000L);
