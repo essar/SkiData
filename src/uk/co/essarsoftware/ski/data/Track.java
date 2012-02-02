@@ -129,4 +129,16 @@ public class Track extends LinkedList<TrackElement>
 	public long getStartTime() {
 		return startTime;
 	}
+	
+	public String toString() {
+		switch(getFirst().getMode()) {
+			case LIFT:
+				return String.format("LIFT (+%dm; %d mins, %d secs)", dAlt, size() / 60, size() % 60);
+			case SKI:
+				return String.format("SKI (%,dm; %.1f kph; %d mins, %d secs)", Math.round(dist), avSpeed, size() / 60, size() % 60);
+			case STOP:
+				return String.format("STOP (%d mins, %d secs)", size() / 60, size() % 60);
+		}
+		return super.toString();
+	}
 }
