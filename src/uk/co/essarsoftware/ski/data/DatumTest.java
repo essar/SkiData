@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 
 
 public class DatumTest
@@ -112,6 +113,18 @@ public class DatumTest
 			System.out.println(String.format("Altitude: %,dm-%,dm", t.getLowAltitude(), t.getHighAltitude()));
 			System.out.println(String.format("Average speed: %.2fkph", t.getAverageSpeed()));
 			System.out.println(String.format("Maximum speed: %.2fkph", t.getMaxSpeed()));
+		}
+		
+		{
+			ArrayList<Track> blockKeys = data.getBlockKeys();
+			System.out.println(blockKeys.size() + " track block(s) found");
+			for(Track k : blockKeys) {
+				ArrayList<Track> block = data.getBlock(k);
+				System.out.println(String.format("* [%tk:%tM] (%d blocks)", k.getFirst().getTimeAsDate(), k.getFirst().getTimeAsDate(), block.size()));
+				for(Track t2 : block) {
+					System.out.println("\t" + t2);
+				}
+			}
 		}
 	}
 }
