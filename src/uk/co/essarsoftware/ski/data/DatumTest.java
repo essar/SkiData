@@ -5,6 +5,9 @@ import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
+
+import uk.co.essarsoftware.ski.data.TrackElement.Mode;
 
 
 public class DatumTest
@@ -83,6 +86,7 @@ public class DatumTest
 		
 		// Output data to file
 		try {
+			System.out.println("Writing loaded data to CSV file...");
 			File outFile = new File(f.getParentFile(), "output.csv");
 			FileWriter fw = new FileWriter(outFile);
 
@@ -117,12 +121,15 @@ public class DatumTest
 		
 		{
 			ArrayList<Track> blockKeys = data.getBlockKeys();
-			System.out.println(blockKeys.size() + " track block(s) found");
+			System.out.println(blockKeys.size() + " track blocks found");
 			for(Track k : blockKeys) {
-				ArrayList<Track> block = data.getBlock(k);
-				System.out.println(String.format("* [%tk:%tM] (%d blocks)", k.getFirst().getTimeAsDate(), k.getFirst().getTimeAsDate(), block.size()));
-				for(Track t2 : block) {
-					System.out.println("\t" + t2);
+				TrackBlock block = data.getBlock(k);
+				Date d = k.getFirst().getTimeAsDate();
+				int aSize = block.getElements().size();
+				int sSize = block.getElements(Mode.SKI).size();
+				System.out.println(String.format("* [%tk:%tM] (%d tracks; %.1f%% ski-time; %d mins, %d secs)", d, d, block.size(), ((float) sSize / (float) aSize) * 100.0f, aSize / 60, aSize % 60));
+				for(Track t2 : block.values()) {
+					System.out.println("\t\t" + t2);
 				}
 			}
 		}

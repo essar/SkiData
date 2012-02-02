@@ -32,30 +32,24 @@ public class SkiData implements Serializable
 	private static final long serialVersionUID = 2372621609920844359L;
 	
 	// Map of blocks
-	private BlockSet blocks;
+	private TrackBlockSet blocks;
 	// Map of tracks
-	private TrackSet tracks;
-	// Map of elements by mode
-	private TrackModeMap modes;
-	// Track of all elements
-	private Track allElements;
+	private TrackBlock tracks;
 	
 	// Current track
 	private transient Track cTrack;
 	// Current block
-	private transient TrackSet cTrackSet;
+	private transient TrackBlock cBlock;
 	
 	/**
 	 * Initialise a new SkiData element.
 	 */
 	SkiData() {
-		allElements = new Track();
-		modes = new TrackModeMap();
-		tracks = new TrackSet();
-		blocks = new BlockSet();
+		tracks = new TrackBlock();
+		blocks = new TrackBlockSet();
 		
 		cTrack = new Track();
-		cTrackSet = new TrackSet();
+		cBlock = new TrackBlock();
 	}
 	
 	/**
@@ -71,14 +65,16 @@ public class SkiData implements Serializable
 			tracks.add(cTrack);
 			
 			// Add current track to blocks
-			if(cTrackSet.size() > 0 && cTrack.getFirst().getMode() == Mode.LIFT) {
+			if(cBlock.size() > 0 && cTrack.getFirst().getMode() == Mode.LIFT) {
+				// Close current block
+				cBlock.close();
 				// Add current block to set of blocks
-				blocks.add(cTrackSet);
+				blocks.add(cBlock);
 				// Reset current block
-				cTrackSet = new TrackSet();
+				cBlock = new TrackBlock();
 			}
 			// Add track to current block
-			cTrackSet.add(cTrack);
+			cBlock.add(cTrack);
 			
 			// Reset current track
 			cTrack = new Track();
@@ -90,12 +86,6 @@ public class SkiData implements Serializable
 	 * @param elem the element to add.
 	 */
 	void addElement(TrackElement elem) {
-		// Add element to complete track
-		allElements.add(elem);
-		
-		// Add element to modes list
-		modes.add(elem);
-		
 		// If this element is not the same mode as the current track, close the track
 		if(cTrack.size() > 0 && elem.getMode() != cTrack.getFirst().getMode()) {
 			closeTrack();
@@ -114,21 +104,8 @@ public class SkiData implements Serializable
 			closeTrack();
 		}
 		
-		// Calculate aggregate values for all element track
-		allElements.calcAggregates();
-		
-		// Calculate aggregate values for each mode track
-		for(Track me : modes.values()) {
-			me.calcAggregates();
-		}
-	}
-	
-	/**
-	 * Get the number of blocks in the data set.
-	 * @return the number of blocks.
-	 */
-	public int blockSize() {
-		return blocks.size();
+		// Calculate aggregate values on tracks
+		tracks.close();
 	}
 	
 	/**
@@ -136,7 +113,7 @@ public class SkiData implements Serializable
 	 * @return a Track containing all elements.
 	 */
 	public Track getAllElements() {
-		return allElements;
+		return tracks.getElements();
 	}
 	
 	/**
@@ -145,19 +122,16 @@ public class SkiData implements Serializable
 	 * @return a Track containing all elements in a given mode.
 	 */
 	public Track getAllElements(Mode mode) {
-		return modes.get(mode);
+		return tracks.getElements(mode);
 	}
 	
 	/**
 	 * Get the tracks contained within a block identified by the specified key.
 	 * @param key the <tt>Track</tt> that identifies the block.
-	 * @return an <tt>ArrayList</tt> of <tt>Track</tt>s, or null if <tt>key</tt> is not a valid key.
+	 * @return a <tt>TrackBlock</tt>, or null if <tt>key</tt> is not a valid key.
 	 */
-	public ArrayList<Track> getBlock(Track key) {
-		if(blocks.containsKey(key)) {
-			return new ArrayList<Track>(blocks.get(key).values());
-		}
-		return null;
+	public TrackBlock getBlock(Track key) {
+		return blocks.get(key);
 	}
 	
 	/**
@@ -167,7 +141,7 @@ public class SkiData implements Serializable
 	 */
 	public Track getBlockElements(Track key) {
 		if(blocks.containsKey(key)) {
-			return blocks.get(key).flattenTracks();
+			return blocks.get(key).getElements();
 		}
 		return null;
 	}
@@ -192,25 +166,17 @@ public class SkiData implements Serializable
 	 * @return the size of the set.
 	 */
 	public int size() {
-		return allElements.size();
+		return cTrack.size() + tracks.getElements().size();
 	}
 	
-	/**
-	 * Get the number of tracks in the data set.
-	 * @return the number of tracks.
-	 */
-	public int trackSize() {
-		return tracks.size();
-	}
-	
-	private class BlockSet extends TreeMap<Track, TrackSet>
+	private class TrackBlockSet extends TreeMap<Track, TrackBlock>
 	{
 		/**
 		 * Unique serializable identifier.
 		 */
 		private static final long serialVersionUID = 7098078063747495972L;
 
-		public BlockSet() {
+		public TrackBlockSet() {
 			super(new Comparator<Track>() {
 				public int compare(Track t1, Track t2) {
 					return (int) ((t1 == null ? 0 : t1.getStartTime()) - (t2 == null ? 0 : t2.getStartTime()));
@@ -218,49 +184,8 @@ public class SkiData implements Serializable
 			});
 		}
 		
-		public void add(TrackSet block) {
+		public void add(TrackBlock block) {
 			put(block.get(block.firstKey()), block);
-		}
-	}
-	
-	/**
-	 * <p>Private inner class containing a set of Tracks, broken down by stages and indexed by the
-	 * first point.</p>
-	 *
-	 * @author Steve Roberts <steve.roberts@essarsoftware.co.uk>
-	 * @version 1.0 (30 Nov 2011)
-	 *
-	 */
-	private class TrackSet extends TreeMap<TrackElement, Track>
-	{
-		/**
-		 * Unique serializable identifier. 
-		 */
-		private static final long serialVersionUID = -4285550362381375944L;
-		
-		public TrackSet() {
-			super(new Comparator<TrackElement>() {
-				public int compare(TrackElement te1, TrackElement te2) {
-					return (int) ((te1 == null ? 0 : te1.getTime()) - (te2 == null ? 0 : te2.getTime()));
-				}
-			});
-		}
-		
-		/**
-		 * Add a track to the set.
-		 * @param track the track to add.
-		 */
-		public void add(Track track) {
-			// Add the track, using the first element as the key
-			put(track.getFirst(), track);
-		}
-		
-		public Track flattenTracks() {
-			Track o = new Track();
-			for(Track t : values()) {
-				o.addAll(t);
-			}
-			return o;
 		}
 	}
 	
