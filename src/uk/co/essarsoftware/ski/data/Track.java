@@ -91,6 +91,14 @@ public class Track extends LinkedList<TrackElement>
 	}
 	
 	/**
+	 * Get the duration of the track.
+	 * @return the duration in seconds.
+	 */
+	public long getDuration() {
+		return endTime - startTime;
+	}
+	
+	/**
 	 * Get the end time.
 	 * @return the latest time of the track.
 	 */
