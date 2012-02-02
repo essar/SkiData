@@ -1,6 +1,7 @@
 package uk.co.essarsoftware.ski.data;
 
 import java.io.Serializable;
+import java.util.Date;
 
 
 /*
@@ -143,6 +144,14 @@ public class TrackElement implements Serializable
 	 */
 	public long getTime() {
 		return datum.t;
+	}
+	
+	/**
+	 * Get GPS time as Java <tt>Date</tt> object.
+	 * @return the GPS time the element was recorded.
+	 */
+	public Date getTimeAsDate() {
+		return new Date(getTime() * 1000L);
 	}
 	
 	/**
