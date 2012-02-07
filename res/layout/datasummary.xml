@@ -61,6 +61,7 @@
 		    	android:layout_height="wrap_content"
 		    	android:background="#30C0F0"
 		    	ski:summarytile_name="@string/datasummary_maxskispeed"
+		    	android:onClick="clickSpeed"
 		    />
 		</TableRow>
 	    
@@ -70,6 +71,7 @@
 		    	android:layout_height="wrap_content"
 		    	android:background="#206080"
 		    	ski:summarytile_name="@string/datasummary_aveskispeed"
+		    	android:onClick="clickSpeed"
 		    />
 	    </TableRow>
 	    
@@ -79,7 +81,6 @@
 		    	android:layout_height="wrap_content"
 		    	android:background="#F030C0"
 		    	ski:summarytile_name="@string/datasummary_totaltime"
-		    	android:onClick="clickTime"
 		    />
 		</TableRow>
 	    
@@ -89,7 +90,6 @@
 		    	android:layout_height="wrap_content"
 		    	android:background="#802060"
 		    	ski:summarytile_name="@string/datasummary_totalskitime"
-		    	android:onClick="clickTime"
 		    />
 		</TableRow>
 	    
