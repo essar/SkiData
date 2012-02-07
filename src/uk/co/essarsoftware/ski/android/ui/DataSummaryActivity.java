@@ -37,7 +37,7 @@ public class DataSummaryActivity extends SkiDataActivity
         if(data != null) {
         	// Set summary values
         	Track t = data.getAllElements();
-        	Track s = data.getAllInMode(Mode.SKI);
+        	Track s = data.getAllElements(Mode.SKI);
         	long tTime = ((t.getEndTime() - t.getStartTime()) * 1000L);
 	        long sTime = (s.size() * 1000L);
 	        
@@ -88,7 +88,7 @@ public class DataSummaryActivity extends SkiDataActivity
     }
     
     /**
-     * Callback method called when an altitude element is clicked.
+     * Callback method called when a speed element is clicked.
      * @param v the Android View that originated this event.
      */
     public void clickSpeed(View v) {
@@ -98,5 +98,16 @@ public class DataSummaryActivity extends SkiDataActivity
     	
     	// Open Plotter
     	startActivity(new Intent(this, XYPlotActivity.class));
+    }
+    
+    /**
+     * Callback method called when a time element is clicked.
+     * @param v the Android View that originated this event.
+     */
+    public void clickTime(View v) {
+    	AppData.getAppData().track = data.getAllElements();
+    	
+    	// Open Tracks
+    	startActivity(new Intent(this, TrackListActivity.class));
     }
 }

@@ -80,6 +80,7 @@
 		    	android:layout_height="wrap_content"
 		    	android:background="#F030C0"
 		    	ski:summarytile_name="@string/datasummary_totaltime"
+		    	android:onClick="clickTime"
 		    />
 		</TableRow>
 	    
@@ -89,6 +90,7 @@
 		    	android:layout_height="wrap_content"
 		    	android:background="#802060"
 		    	ski:summarytile_name="@string/datasummary_totalskitime"
+		    	android:onClick="clickTime"
 		    />
 		</TableRow>
 	    
