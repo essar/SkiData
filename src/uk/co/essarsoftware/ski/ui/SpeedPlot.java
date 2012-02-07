@@ -12,9 +12,6 @@ public class SpeedPlot extends XYPlot
 		XYDataSet data = new XYDataSet();
 		long st = track.getStartTime();
 		for(TrackElement te : track) {
-			if(te.getTime() > Float.MAX_VALUE) {
-				System.out.println("** Exceed float bounds");
-			}
 			data.add(new XYTrackElement(te.getTime() - st, te.getSpeed(), te));
 			//data.add(new XYTrackElement(te.getTime(), te.getSpeed(), te));
 		}

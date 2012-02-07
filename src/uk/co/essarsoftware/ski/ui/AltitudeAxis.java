@@ -10,6 +10,6 @@ public class AltitudeAxis extends XYAxis
 	
 	@Override
 	public String getLabel(float f) {
-		return String.format("%,d", f);
+		return String.format("%,.0f", f);
 	}
 }
