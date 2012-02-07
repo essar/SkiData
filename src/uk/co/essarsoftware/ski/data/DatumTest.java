@@ -125,9 +125,8 @@ public class DatumTest
 			for(Track k : blockKeys) {
 				TrackBlock block = data.getBlock(k);
 				Date d = k.getFirst().getTimeAsDate();
-				int aSize = block.getElements().size();
-				int sSize = block.getElements(Mode.SKI).size();
-				System.out.println(String.format("* [%tk:%tM] (%d tracks; %.1f%% ski-time; %d mins, %d secs)", d, d, block.size(), ((float) sSize / (float) aSize) * 100.0f, aSize / 60, aSize % 60));
+				int sz = block.getElements().size();
+				System.out.println(String.format("* [%tk:%tM] (%d tracks; %.1f%% ski-time; %d mins, %d secs)", d, d, block.size(), block.getRatio(Mode.SKI) * 100.0f, sz / 60, sz % 60));
 				for(Track t2 : block.values()) {
 					System.out.println("\t\t" + t2);
 				}
