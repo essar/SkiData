@@ -13,7 +13,6 @@ package uk.co.essarsoftware.ski.data;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.TreeMap;
 
 import uk.co.essarsoftware.ski.data.TrackElement.Mode;
@@ -162,6 +161,14 @@ public class SkiData implements Serializable
 	}
 	
 	/**
+	 * Get a list of all track elements that represent track keys.
+	 * @return an <tt>ArrayList</tt> of <tt>TrackElement</tt>s.
+	 */
+	public ArrayList<TrackElement> getTrackKeys() {
+		return new ArrayList<TrackElement>(tracks.keySet());
+	}
+	
+	/**
 	 * Get the total number of elements in the data set.
 	 * @return the size of the set.
 	 */
@@ -186,33 +193,6 @@ public class SkiData implements Serializable
 		
 		public void add(TrackBlock block) {
 			put(block.get(block.firstKey()), block);
-		}
-	}
-	
-	/**
-	 * <p>Private inner class mapping tracks by mode.</p>
-	 *
-	 * @author Steve Roberts <steve.roberts@essarsoftware.co.uk>
-	 * @version 1.0 (30 Nov 2011)
-	 */
-	private class TrackModeMap extends HashMap<Mode, Track>
-	{
-		/**
-		 * Unique serializable identifier.
-		 */
-		private static final long serialVersionUID = 6161858796973305838L;
-
-		/**
-		 * Add a track element to the map.
-		 * @param elem the <tt>TrackElement</tt> to add.
-		 */
-		public void add(TrackElement elem) {
-			if(! containsKey(elem.getMode())) {
-				// Key not found, create new track
-				put(elem.getMode(), new Track());
-			}
-			// Add to the end of existing track
-			get(elem.getMode()).addLast(elem);
 		}
 	}
 }

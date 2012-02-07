@@ -62,6 +62,10 @@ public class TrackBlock extends TreeMap<TrackElement, Track>
 		return (size() == 0 ? 0 : get(lastKey()).getEndTime());
 	}
 	
+	public float getRatio(Mode mode) {
+		return (float) modes.sizeFor(mode) / (float) size();
+	}
+	
 	public long getStartTime() {
 		return (size() == 0 ? 0 : get(firstKey()).getStartTime());
 	}
@@ -84,6 +88,10 @@ public class TrackBlock extends TreeMap<TrackElement, Track>
 			}
 			// Add to the end of existing track
 			get(elem.getMode()).addLast(elem);
+		}
+		
+		public int sizeFor(Mode mode) {
+			return (containsKey(mode) ? get(mode).size() : 0);
 		}
 	}
 }

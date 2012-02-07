@@ -27,9 +27,10 @@ public class Track extends LinkedList<TrackElement>
 	private static final long serialVersionUID = 8822380771220916932L;
 	
 	// Aggregate elements
-	private float avSpeed, dist, maxSpeed;
-	private int dAlt, hiAlt, loAlt;
+	private float avgSpeed, dist;
+	private int dAlt;
 	private long endTime, startTime;
+	private TrackElement hiAlt, loAlt, maxSpeed;
 	
 	/**
 	 * Create a new, empty Track.
@@ -45,18 +46,16 @@ public class Track extends LinkedList<TrackElement>
 		int ct = 0;
 		// Loop through all elements in the set to calculate the aggregate values
 		for(TrackElement elem : this) {
-			// Count
-			ct ++;
 			// Overall altitude change
 			dAlt += elem.getAltitudeChange();
-			// Highest altitude
-			hiAlt = (hiAlt == 0 ? elem.getAltitude() : Math.max(hiAlt, elem.getAltitude()));
-			// Lowest altitude
-			loAlt = (loAlt == 0 ? elem.getAltitude() : Math.min(loAlt, elem.getAltitude()));
+			// Highest altitude element
+			hiAlt = (hiAlt == null ? elem : (elem.getAltitude() > hiAlt.getAltitude() ? elem : hiAlt));
+			// Lowest altitude element
+			loAlt = (loAlt == null ? elem : (elem.getAltitude() < loAlt.getAltitude() ? elem : loAlt));
 			// Average speed
-			avSpeed = ((avSpeed * (ct - 1)) + elem.getSpeed()) / ct;
+			avgSpeed = ((avgSpeed * ct) + elem.getSpeed()) / (++ ct);
 			// Maximum speed
-			maxSpeed = (maxSpeed == 0.0f ? elem.getSpeed() : Math.max(maxSpeed, elem.getSpeed()));
+			maxSpeed = (maxSpeed == null ? elem : (elem.getSpeed() > maxSpeed.getSpeed() ? elem : maxSpeed));
 			// Total distance
 			dist += elem.getDistance();
 			// Earliest time
@@ -71,7 +70,7 @@ public class Track extends LinkedList<TrackElement>
 	 * @return the average speed on the track.
 	 */
 	public float getAverageSpeed() {
-		return avSpeed;
+		return avgSpeed;
 	}
 	
 	/**
@@ -111,7 +110,7 @@ public class Track extends LinkedList<TrackElement>
 	 * @return the highest altitude reached on the track.
 	 */
 	public int getHighAltitude() {
-		return hiAlt;
+		return hiAlt.getAltitude();
 	}
 	
 	/**
@@ -119,7 +118,7 @@ public class Track extends LinkedList<TrackElement>
 	 * @return the lowest altitude reached on the track.
 	 */
 	public int getLowAltitude() {
-		return loAlt;
+		return loAlt.getAltitude();
 	}
 	
 	/**
@@ -127,7 +126,7 @@ public class Track extends LinkedList<TrackElement>
 	 * @return the maximum speed reached on the track.
 	 */
 	public float getMaxSpeed() {
-		return maxSpeed;
+		return maxSpeed.getSpeed();
 	}
 	
 	/**
@@ -143,7 +142,7 @@ public class Track extends LinkedList<TrackElement>
 			case LIFT:
 				return String.format("LIFT (+%dm; %d mins, %d secs)", dAlt, size() / 60, size() % 60);
 			case SKI:
-				return String.format("SKI (%,dm; %.1f kph; %d mins, %d secs)", Math.round(dist), avSpeed, size() / 60, size() % 60);
+				return String.format("SKI (%,dm; %.1f kph; %d mins, %d secs)", Math.round(dist), avgSpeed, size() / 60, size() % 60);
 			case STOP:
 				return String.format("STOP (%d mins, %d secs)", size() / 60, size() % 60);
 		}
