@@ -31,11 +31,9 @@ import android.view.View;
 public class XYPlotView extends View
 {
 	// Rendering settings
-	private boolean drawBadges;
 	private int plotAreaBg = 0x33808080; // Mid-gray with 33% transparency
 
 	private float padding = 2.0f;
-	private float cX, cY, zFactor;
 	private Renderer vr;
 	private XYPlot plot;
 	
@@ -48,13 +46,6 @@ public class XYPlotView extends View
 		super(context);
 		this.plot = plot;
 		this.vr = vr;
-		
-		this.zFactor = 1.0f;
-	}
-	
-	public XYPlotView(Context context, XYPlot plot, Renderer vr, float cX, float cY, float zFactor) {
-		this(context, plot, vr);
-		
 	}
 	
 	/**
@@ -67,10 +58,6 @@ public class XYPlotView extends View
 		if(redraw) {
 			invalidate();
 		}
-	}
-	
-	void showBadges(boolean visible) {
-		this.drawBadges = visible;
 	}
 	
 	/* (non-Javadoc)
@@ -111,9 +98,6 @@ public class XYPlotView extends View
 		Log.d("XYPlot", String.format("Plot area set to %.2fx%.2f", plWidth, plHeight));
 		Log.d("XYPlot", String.format("Drawing area set to %.2fx%.2f", dwWidth, dwHeight));
 		Log.d("XYPlot", String.format("Scaling plot by %.2fx%.2f", scaleX, scaleY));
-
-		// Move plot to origin
-		//canvas.translate(-plX, -plY);
 		
 		// Use negative Y-scale factor to invert y-axis
 		canvas.scale(scaleX, -scaleY);
@@ -133,7 +117,6 @@ public class XYPlotView extends View
 		
 		// Draw plot area background
 		p.setColor(plotAreaBg);
-		//RectF plotArea = new RectF(plot.getXAxis().getMinValue(), plot.getYAxis().getMinValue(), plot.getXAxis().getMaxValue(), plot.getYAxis().getMaxValue());
 		RectF plotArea = new RectF(plX, plY, plX + plWidth, plY + plHeight);
 		canvas.drawRect(plotArea, p);
 		
@@ -265,15 +248,5 @@ public class XYPlotView extends View
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 		// Default : fill parent?
 		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-	}
-	
-	public void zoomTo(float cX, float cY, float zFactor, boolean redraw) {
-		this.cX = cX;
-		this.cY = cY;
-		this.zFactor = zFactor;
-		
-		if(redraw) {
-			invalidate();
-		}
 	}
 }
