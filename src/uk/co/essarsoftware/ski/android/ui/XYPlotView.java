@@ -143,17 +143,17 @@ public class XYPlotView extends View
 			p.setTextSize(10.0f);
 			
 			// Draw x axis
-			float xAxisY = plot.getYAxis().getMinValue() - (1.0f / scaleY);
+			float xAxisY = plY - (1.0f / scaleY);
 			
-			canvas.drawLine(plot.getXAxis().getMinValue(), xAxisY, plot.getXAxis().getMaxValue(), xAxisY, p);
+			canvas.drawLine(plX, xAxisY, plX + plWidth, xAxisY, p);
 			for(float f : plot.getXAxis().getTickValues()) {
 				canvas.drawLine(f, xAxisY, f, xAxisY - (10.0f / scaleY), p);
 			}
 			
 			// Draw y axis
-			float yAxisX = plot.getYAxis().getMinValue() - (1.0f / scaleY);
+			float yAxisX = plX - (1.0f / scaleY);
 			
-			canvas.drawLine(yAxisX, plot.getYAxis().getMinValue(), yAxisX, plot.getYAxis().getMaxValue(), p);
+			canvas.drawLine(yAxisX, plY, yAxisX, plY + plHeight, p);
 			for(float f : plot.getYAxis().getTickValues()) {
 				canvas.drawLine(yAxisX, f, yAxisX - (10.0f / scaleX), f, p);
 			}
