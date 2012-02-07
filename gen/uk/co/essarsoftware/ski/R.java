@@ -52,7 +52,8 @@ containing a value of this type.
         public static final int loaddata=0x7f030001;
         public static final int main=0x7f030002;
         public static final int summarytile=0x7f030003;
-        public static final int xyplotter=0x7f030004;
+        public static final int tracklist=0x7f030004;
+        public static final int xyplotter=0x7f030005;
     }
     public static final class menu {
         public static final int xyplotmenu=0x7f050000;

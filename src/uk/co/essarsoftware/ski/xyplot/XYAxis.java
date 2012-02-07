@@ -15,29 +15,33 @@ public class XYAxis
 	private float tickInterval;
 	private float minValue, maxValue;
 	private int axisType;
+	private String axisName;
 	
 	/**
 	 * Create a new normal axis.
+	 * @param axisName the name of this axis.
 	 * @param minValue the lowest value in the data series.
 	 * @param maxValue the highest value in the data series.
 	 */
-	XYAxis(float minValue, float maxValue) {
-		this(minValue, maxValue, AXIS_TYPE_NORMAL);
+	XYAxis(String axisName, float minValue, float maxValue) {
+		this(axisName, minValue, maxValue, AXIS_TYPE_NORMAL);
 	}
 	
 	/**
 	 * Create a new axis of the specified type.
+	 * @param axisName the name of this axis.
 	 * @param minValue the lowest value in the data series.
 	 * @param maxValue the highest value in the data series.
 	 * @param axisType constant indicating axis type.
 	 */
-	XYAxis(float minValue, float maxValue, int axisType) {
+	protected XYAxis(String axisName, float minValue, float maxValue, int axisType) {
+		this.axisName = axisName;
 		this.minValue = minValue;
 		this.maxValue = maxValue;
 		this.axisType = axisType;
 		
 		// Set tick interval to 0 - off
-		this.tickInterval = 0.0f;
+		this.tickInterval = Float.MAX_VALUE;
 	}
 	
 	/**
@@ -55,6 +59,10 @@ public class XYAxis
 			in = (float) Math.log(in);
 		}
 		return in;
+	}
+	
+	public String getAxisName() {
+		return axisName;
 	}
 	
 	public String getLabel(float v) {
@@ -135,6 +143,10 @@ public class XYAxis
 	 */
 	public boolean isLogarithmic() {
 		return (axisType & AXIS_TYPE_LOGARITHMIC) > 0;
+	}
+	
+	public void setAxisName(String axisName) {
+		this.axisName = axisName;
 	}
 	
 	/**

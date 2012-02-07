@@ -21,7 +21,7 @@ package uk.co.essarsoftware.ski.xyplot;
  */
 public class XYPlot
 {
-	private boolean proportional;
+	private boolean proportional, showScale;
 	private XYDataSet[] data;
 	private XYAxis xAxis, yAxis;
 	
@@ -50,8 +50,16 @@ public class XYPlot
 	public XYPlot(XYDataSet[] data, int xMode, int yMode) {
 		this.data = data;
 		
-		xAxis = new XYAxis(data[0].getMinX(), data[0].getMaxX(), xMode);
-		yAxis = new XYAxis(data[0].getMinY(), data[0].getMaxY(), yMode);
+		xAxis = createXAxis(data[0].getMinX(), data[0].getMaxX(), xMode);
+		yAxis = createYAxis(data[0].getMinY(), data[0].getMaxY(), yMode);
+	}
+	
+	protected XYAxis createXAxis(float min, float max, int mode) {
+		return new XYAxis(null, min, max, mode);
+	}
+	
+	protected XYAxis createYAxis(float min, float max, int mode) {
+		return new XYAxis(null, min, max, mode);
 	}
 	
 	/**
@@ -86,12 +94,20 @@ public class XYPlot
 		return proportional;
 	}
 	
+	public boolean isScaleShown() {
+		return showScale;
+	}
+	
 	/**
 	 * Set the proportional flag for this plot.
 	 * @param proportional true if this plot can only be scaled in a proportional manner, false otherwise.
 	 */
 	public void setProportional(boolean proportional) {
 		this.proportional = proportional;
+	}
+	
+	public void showScale(boolean showScale) {
+		this.showScale = showScale;
 	}
 	
 	/**
