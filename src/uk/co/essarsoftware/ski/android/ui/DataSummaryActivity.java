@@ -99,15 +99,4 @@ public class DataSummaryActivity extends SkiDataActivity
     	// Open Plotter
     	startActivity(new Intent(this, XYPlotActivity.class));
     }
-    
-    /**
-     * Callback method called when a time element is clicked.
-     * @param v the Android View that originated this event.
-     */
-    public void clickTime(View v) {
-    	AppData.getAppData().track = data.getAllElements();
-    	
-    	// Open Tracks
-    	startActivity(new Intent(this, TrackListActivity.class));
-    }
 }

@@ -250,7 +250,7 @@ public class LoadDataActivity extends SkiDataActivity implements DataLoaderListe
         	return;
         }
         // Open summary screen
-        startActivity(new Intent(this, DataSummaryActivity.class));
+        startActivity(new Intent(this, MainTabbedActivity.class));
 	}
 	
 	/* (non-Javadoc)
